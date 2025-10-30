@@ -9,17 +9,9 @@ namespace SmartFileManager.App
     {
         private static void Main(string[] args)
         {
-            CommandContext commandContext = new CommandContext();
-            IFileService fileService = new FileService();
-            IDirectoryService directoryService = new DirectoryService();
-            CommandRegistry commandRegistry = new CommandRegistry(fileService, directoryService);
-            CommandParser commandParser = new CommandParser();
-
-            ICommandHandler commandHandler = new CommandHandler(commandContext, commandRegistry, commandParser);
-            IUI uI = new ConsoleUI();
-
-            Coordinator coordinator = new Coordinator(uI, commandHandler);
-            coordinator.Start();
+            // Main только запускает приложение
+            var executor = CompositionRoot.CreateExecutor();
+            executor.Start();
         }
     }
 }

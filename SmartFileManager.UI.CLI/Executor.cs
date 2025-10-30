@@ -3,12 +3,12 @@ using SmartFileManager.Core.Models;
 
 namespace SmartFileManager.Core.Services
 {
-    public class Coordinator
+    public class Executor
     {
         private readonly ICommandHandler _commandHandler;
         private readonly IUI _uI;
 
-        public Coordinator(IUI uI, ICommandHandler commandHandler)
+        public Executor(IUI uI, ICommandHandler commandHandler)
         {
             _commandHandler = commandHandler;
             _uI = uI;
