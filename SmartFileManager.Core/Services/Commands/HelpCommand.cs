@@ -20,7 +20,7 @@ namespace SmartFileManager.Core.Services.Commands
         {          
             StringBuilder sb = new StringBuilder();
             sb.Append("--help: \n");
-            foreach (var item in _commands) {
+            foreach (var item in _commands.Where(c => c.HideFromHelp == false)) {
                 sb.Append(item.Name + " - " + item.Description + "\n");
             }
             return new CommandResult() { Status = CommandStatus.Success, Message = sb.ToString() };

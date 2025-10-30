@@ -7,6 +7,7 @@ namespace SmartFileManager.Core.Services.Commands
     {
         public abstract string Name { get; }
         public abstract string Description { get; }
+        public virtual bool HideFromHelp => false;
 
         protected readonly IFileService _fileService;
         protected readonly IDirectoryService _directoryService;
