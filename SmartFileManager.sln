@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36511.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFileManager.App", "SmartFileManager.App\SmartFileManager.App.csproj", "{1FF6D3E8-D7C4-4F78-9E9F-DA7856FBBFD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFileManager.Core", "SmartFileManager.Core\SmartFileManager.Core.csproj", "{FC6709B4-37D1-474D-9232-11231F8B1B5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFileManager.UI.CLI", "SmartFileManager.UI.CLI\SmartFileManager.UI.CLI.csproj", "{A1689347-98D0-4394-9ECB-9BEC4F97E9AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFileManager.Tests", "SmartFileManager.Tests\SmartFileManager.Tests.csproj", "{2DFAF8B0-D035-43B2-B96F-FF9309E2F742}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFileManager.UI.WPF", "SmartFileManager.UI.WPF\SmartFileManager.UI.WPF.csproj", "{048C4603-CD31-75C3-2E67-3D0D10155AAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FF6D3E8-D7C4-4F78-9E9F-DA7856FBBFD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF6D3E8-D7C4-4F78-9E9F-DA7856FBBFD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF6D3E8-D7C4-4F78-9E9F-DA7856FBBFD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF6D3E8-D7C4-4F78-9E9F-DA7856FBBFD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC6709B4-37D1-474D-9232-11231F8B1B5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC6709B4-37D1-474D-9232-11231F8B1B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC6709B4-37D1-474D-9232-11231F8B1B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC6709B4-37D1-474D-9232-11231F8B1B5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1689347-98D0-4394-9ECB-9BEC4F97E9AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1689347-98D0-4394-9ECB-9BEC4F97E9AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1689347-98D0-4394-9ECB-9BEC4F97E9AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1689347-98D0-4394-9ECB-9BEC4F97E9AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DFAF8B0-D035-43B2-B96F-FF9309E2F742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DFAF8B0-D035-43B2-B96F-FF9309E2F742}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DFAF8B0-D035-43B2-B96F-FF9309E2F742}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DFAF8B0-D035-43B2-B96F-FF9309E2F742}.Release|Any CPU.Build.0 = Release|Any CPU
+		{048C4603-CD31-75C3-2E67-3D0D10155AAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{048C4603-CD31-75C3-2E67-3D0D10155AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{048C4603-CD31-75C3-2E67-3D0D10155AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{048C4603-CD31-75C3-2E67-3D0D10155AAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F33B3A61-63AA-4DE3-8B6F-248C616B651D}
+	EndGlobalSection
+EndGlobal
