@@ -3,12 +3,12 @@ using SmartFileManager.Core.Models;
 
 namespace SmartFileManager.Core.Services
 {
-    public class CommandHandler : ICommandHandler
+    public class CommandDispatcher : ICommandDispatcher
     {
         private readonly CommandContext _commandContext;
         private readonly CommandRegistry _commandRegistry;
         private readonly CommandParser _commandParser;
-        public CommandHandler(CommandContext commandContext, CommandRegistry commandRegistry, CommandParser commandParser)
+        public CommandDispatcher(CommandContext commandContext, CommandRegistry commandRegistry, CommandParser commandParser)
         {
             _commandContext = commandContext;
             _commandRegistry = commandRegistry;
@@ -41,7 +41,7 @@ namespace SmartFileManager.Core.Services
         {
             try {
                 string logDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
-                Directory.CreateDirectory(logDir); // create directory if it doesn't exist
+                Directory.CreateDirectory(logDir);
                 string logFile = Path.Combine(logDir, "errors.txt");
 
                 string logEntry =

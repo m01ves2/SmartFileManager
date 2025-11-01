@@ -2,7 +2,7 @@
 
 namespace SmartFileManager.Core.Interfaces
 {
-    public interface ICommandHandler
+    public interface ICommandDispatcher
     {
         CommandResult Execute(string input);
         string GetCLIPrompt();

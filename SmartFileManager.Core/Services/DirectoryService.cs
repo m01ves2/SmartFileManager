@@ -1,6 +1,6 @@
 ﻿using SmartFileManager.Core.Interfaces;
 
-//реализация работы с файлами и каталогами.
+//low-level working with files/directories
 namespace SmartFileManager.Core.Services
 {
     public class DirectoryService : IDirectoryService

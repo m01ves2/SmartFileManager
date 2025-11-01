@@ -9,7 +9,7 @@ namespace SmartFileManager.App
     {
         private static void Main(string[] args)
         {
-            // Main только запускает приложение
+            // Main = start point
             var executor = CompositionRoot.CreateExecutor();
             executor.Start();
         }

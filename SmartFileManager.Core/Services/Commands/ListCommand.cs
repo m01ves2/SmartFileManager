@@ -18,7 +18,7 @@ namespace SmartFileManager.Core.Services.Commands
         {
             try {
 
-                (IEnumerable<string> commandKeys, string source, string destination) = ParseArgs(args);
+                (IEnumerable<string> commandKeys, string source, string destination) = ParseCommandArguments(args);
                 if (source == "") 
                     source = ".";
 

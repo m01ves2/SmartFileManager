@@ -3,14 +3,14 @@ using SmartFileManager.Core.Models;
 
 namespace SmartFileManager.Core.Services
 {
-    public class Executor
+    public class CommandExecutor
     {
-        private readonly ICommandHandler _commandHandler;
+        private readonly ICommandDispatcher _commandDispatcher;
         private readonly IUI _uI;
 
-        public Executor(IUI uI, ICommandHandler commandHandler)
+        public CommandExecutor(IUI uI, ICommandDispatcher commandDispatcher)
         {
-            _commandHandler = commandHandler;
+            _commandDispatcher = commandDispatcher;
             _uI = uI;
         }
 
@@ -18,7 +18,7 @@ namespace SmartFileManager.Core.Services
         {
 
             while (true) {
-                string prompt = _commandHandler.GetCLIPrompt();
+                string prompt = _commandDispatcher.GetCLIPrompt();
                 string input = _uI.ReadInput(prompt);
                 CommandResult commandResult;
 
@@ -26,7 +26,7 @@ namespace SmartFileManager.Core.Services
                     continue;
                 }
 
-                commandResult = _commandHandler.Execute(input);
+                commandResult = _commandDispatcher.Execute(input);
 
                 _uI.WriteOutput(commandResult);
 

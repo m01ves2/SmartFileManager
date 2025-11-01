@@ -18,7 +18,7 @@ namespace SmartFileManager.Core.Services.Commands
             _directoryService = directoryService;
         }
         
-        protected (IEnumerable<string> commandKeys, string source, string destination) ParseArgs(string[] args)
+        protected (IEnumerable<string> commandKeys, string source, string destination) ParseCommandArguments(string[] args)
         {
             IEnumerable<string> commandKeys = args.Where(t => t.StartsWith('-'));
             var positionalArgs = args.Where(t => !t.StartsWith('-')).ToArray();

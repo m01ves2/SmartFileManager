@@ -14,7 +14,7 @@ namespace SmartFileManager.App
 {
     internal static class CompositionRoot
     {
-        public static Executor CreateExecutor()
+        public static CommandExecutor CreateExecutor()
         {
             // Core services
             var commandContext = new CommandContext();
@@ -23,14 +23,14 @@ namespace SmartFileManager.App
             IEnumerable<ICommand> commands = BuildCommandList(fileService, directoryService);
             var commandRegistry = new CommandRegistry(commands);
             var commandParser = new CommandParser();
-            ICommandHandler commandHandler = new CommandHandler(commandContext, commandRegistry, commandParser);
+            ICommandDispatcher commandHandler = new CommandDispatcher(commandContext, commandRegistry, commandParser);
 
             // UI & Formatter
             IUI ui = new ConsoleUI();
             IFormatter formatter = new ConsoleFormatter(); // если понадобится позже
-
-            // Executor (ранее Coordinator)
-            return new Executor(ui, commandHandler);
+            
+            //Command Execution
+            return new CommandExecutor(ui, commandHandler);
         }
 
         private static List<ICommand> BuildCommandList(IFileService fileService, IDirectoryService directoryService)
