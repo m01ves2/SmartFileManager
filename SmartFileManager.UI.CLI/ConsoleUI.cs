@@ -1,11 +1,38 @@
-﻿using SmartFileManager.Core.Interfaces;
+﻿using SmartFileManager.App.Interfaces;
+using SmartFileManager.App.Services;
 using SmartFileManager.Core.Models;
 
-namespace SmartFileManager.UI.Infrastructure
+namespace SmartFileManager.UI.CLI
 {
-    //вывод текста, ошибок, меню - создаёт команды из текста (связывает App и Core)
     public class ConsoleUI : IUI
     {
+        private readonly ICommandExecutor _executor;
+        public ConsoleUI(ICommandExecutor executor)
+        {
+            _executor = executor;
+        }
+
+        public void Run()
+        {
+
+            while (true) {
+                string prompt = _executor.GetPrompt() + "> ";
+                string input = ReadInput(prompt);
+                //CommandResult commandResult;
+
+                //if (string.IsNullOrEmpty(input)) {
+                //    continue;
+                //}
+
+                CommandResult commandResult = _executor.Execute(input);
+                WriteOutput(commandResult);
+
+                if (commandResult.Status == CommandStatus.Exit) {
+                    break;
+                }
+            }
+        }
+
         public void WriteOutput(CommandResult commandResult)
         {
             if(commandResult.Status == CommandStatus.Success)

@@ -1,6 +1,6 @@
 ﻿using SmartFileManager.Core.Models;
 
-namespace SmartFileManager.Core.Interfaces
+namespace SmartFileManager.App.Interfaces
 {
     public interface IUI
     {

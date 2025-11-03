@@ -1,6 +1,8 @@
-﻿namespace SmartFileManager.Core.Services
+﻿using SmartFileManager.App.Interfaces;
+
+namespace SmartFileManager.App.Services
 {
-    public class CommandParser
+    public class CommandParser : ICommandParser
     {
         public (string commandName, string[] args) Parse(string input)
         {

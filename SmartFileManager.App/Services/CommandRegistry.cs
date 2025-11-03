@@ -1,7 +1,6 @@
 ﻿using SmartFileManager.Core.Interfaces;
-using SmartFileManager.Core.Services.Commands;
 
-namespace SmartFileManager.Core.Services
+namespace SmartFileManager.App.Services
 {
     /// <summary>
     /// Registry for Command metadata & lookup
@@ -18,8 +17,10 @@ namespace SmartFileManager.Core.Services
         {
             if (_registry.ContainsKey(name))
                 return _registry[name];
-            else
+            else if (_registry.ContainsKey("unknown"))
                 return _registry["unknown"];
+            else
+                throw new Exception($"Command {name} not registered.");
         }
     }
 }

@@ -8,7 +8,7 @@ namespace SmartFileManager.Core.Services.Commands
         public override string Name => "exit";
         public override string Description => "Close application";
 
-        public ExitCommand(IFileService fileService, IDirectoryService directoryService) : base(fileService, directoryService)
+        public ExitCommand(IFileSystemService fs) : base(fs)
         {
         }
 

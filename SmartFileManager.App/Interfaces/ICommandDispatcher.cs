@@ -1,10 +1,10 @@
 ﻿using SmartFileManager.Core.Models;
 
-namespace SmartFileManager.Core.Interfaces
+namespace SmartFileManager.App.Interfaces
 {
     public interface ICommandDispatcher
     {
         CommandResult Execute(string input);
-        string GetCLIPrompt();
+        string GetPrompt();
     }
 }

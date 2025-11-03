@@ -1,4 +1,4 @@
-﻿using SmartFileManager.Core.Interfaces;
+﻿using SmartFileManager.App.Interfaces;
 using SmartFileManager.Core.Models;
 
 namespace SmartFileManager.UI.CLI

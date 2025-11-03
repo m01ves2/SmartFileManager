@@ -1,7 +1,8 @@
-﻿using SmartFileManager.Core.Interfaces;
+﻿using SmartFileManager.App.Interfaces;
+using SmartFileManager.Core.Interfaces;
 using SmartFileManager.Core.Models;
 
-namespace SmartFileManager.Core.Services
+namespace SmartFileManager.App.Services
 {
     public class CommandDispatcher : ICommandDispatcher
     {
@@ -32,9 +33,9 @@ namespace SmartFileManager.Core.Services
             }
         }
 
-        public string GetCLIPrompt()
+        public string GetPrompt()
         {
-            return _commandContext.CurrentDirectory + ">";
+            return _commandContext.CurrentDirectory;
         }
 
         private void LogError(string category, Exception ex)

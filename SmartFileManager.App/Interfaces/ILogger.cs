@@ -1,4 +1,4 @@
-﻿namespace SmartFileManager.Core.Interfaces
+﻿namespace SmartFileManager.App.Interfaces
 {
     internal interface ILogger
     {

@@ -9,22 +9,24 @@ namespace SmartFileManager.Core.Services.Commands
         public abstract string Description { get; }
         public virtual bool HideFromHelp => false;
 
-        protected readonly IFileService _fileService;
-        protected readonly IDirectoryService _directoryService;
+        protected readonly IFileSystemService _fs;
 
-        public BaseCommand(IFileService fileService, IDirectoryService directoryService)
+        public BaseCommand(IFileSystemService fs)
         {
-            _fileService = fileService;
-            _directoryService = directoryService;
+            _fs = fs;
         }
-        
+
+        protected bool IsFile(string path) => File.Exists(path);
+        protected bool IsDirectory(string path) => Directory.Exists(path);
+
         protected (IEnumerable<string> commandKeys, string source, string destination) ParseCommandArguments(string[] args)
-        {
-            IEnumerable<string> commandKeys = args.Where(t => t.StartsWith('-'));
+        {   
             var positionalArgs = args.Where(t => !t.StartsWith('-')).ToArray();
             string source = positionalArgs.ElementAtOrDefault(0) ?? "";
             string destination = positionalArgs.ElementAtOrDefault(1) ?? "";
 
+            var commandKeys = args.Where(t => t.StartsWith('-')).SelectMany(t => t.Skip(1).Select(c => c.ToString()));
+            
             return (commandKeys, source, destination);
         }
 

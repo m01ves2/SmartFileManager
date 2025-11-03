@@ -9,7 +9,7 @@ namespace SmartFileManager.Core.Services.Commands
         public override string Description => "Handles unknown commands";
         public override bool HideFromHelp => true;
 
-        public UnknownCommand(IFileService fileService, IDirectoryService directoryService) : base(fileService, directoryService)
+        public UnknownCommand(IFileSystemService fs) : base(fs)
         {
         }
         public override CommandResult Execute(CommandContext context, string[] args)

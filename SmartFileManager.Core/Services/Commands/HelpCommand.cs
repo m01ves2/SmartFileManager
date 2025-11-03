@@ -11,7 +11,7 @@ namespace SmartFileManager.Core.Services.Commands
 
         private IReadOnlyList<ICommand> _commands;
 
-        public HelpCommand(IReadOnlyList<ICommand> commands, IFileService fileService, IDirectoryService directoryService) : base(fileService, directoryService)
+        public HelpCommand(IReadOnlyList<ICommand> commands, IFileSystemService fs) : base(fs)
         {
             _commands = commands;
         }
