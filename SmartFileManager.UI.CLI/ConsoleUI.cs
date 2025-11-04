@@ -18,11 +18,6 @@ namespace SmartFileManager.UI.CLI
             while (true) {
                 string prompt = _executor.GetPrompt() + "> ";
                 string input = ReadInput(prompt);
-                //CommandResult commandResult;
-
-                //if (string.IsNullOrEmpty(input)) {
-                //    continue;
-                //}
 
                 CommandResult commandResult = _executor.Execute(input);
                 WriteOutput(commandResult);

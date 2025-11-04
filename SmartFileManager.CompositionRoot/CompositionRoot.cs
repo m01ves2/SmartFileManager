@@ -18,7 +18,7 @@ namespace SmartFileManager.CompositionRoot
             IFileService fileService = new FileService();
             IDirectoryService directoryService = new DirectoryService();
             IFileSystemService fileSystemService = new FileSystemService(fileService, directoryService);
-            IEnumerable<ICommand> commands = BuildCommandList(fileSystemService);
+            IEnumerable<ICommand> commands = BuildCommandList(fileSystemService, commandContext);
 
             //App services
             var commandRegistry = new CommandRegistry(commands);
@@ -29,20 +29,21 @@ namespace SmartFileManager.CompositionRoot
             return commandExecutor;
         }
 
-        private static List<ICommand> BuildCommandList(IFileSystemService fileSystemService)
+        private static List<ICommand> BuildCommandList(IFileSystemService fileSystemService, CommandContext context)
         {
             var commands = new List<ICommand>();
-            ICommand copyCommand = new CopyCommand(fileSystemService);
-            ICommand createCommand = new CreateCommand(fileSystemService);
-            ICommand deleteCommand = new DeleteCommand(fileSystemService);
-            ICommand listCommand = new ListCommand(fileSystemService);
-            ICommand moveCommand = new MoveCommand(fileSystemService);
-            ICommand exitCommand = new ExitCommand(fileSystemService);
-            ICommand unknownCommand = new UnknownCommand(fileSystemService);
+            ICommand copyCommand = new CopyCommand(fileSystemService, context);
+            ICommand createCommand = new CreateCommand(fileSystemService, context);
+            ICommand deleteCommand = new DeleteCommand(fileSystemService, context);
+            ICommand listCommand = new ListCommand(fileSystemService, context);
+            ICommand moveCommand = new MoveCommand(fileSystemService, context);
+            ICommand exitCommand = new ExitCommand(fileSystemService, context);
+            ICommand cdCommand = new CdCommand(fileSystemService, context);
+            ICommand unknownCommand = new UnknownCommand(fileSystemService, context);
 
-            commands.AddRange(new[] { listCommand, copyCommand, createCommand, deleteCommand, moveCommand, exitCommand, unknownCommand });
+            commands.AddRange(new[] { listCommand, copyCommand, createCommand, deleteCommand, moveCommand, exitCommand, cdCommand, unknownCommand });
 
-            ICommand helpCommand = new HelpCommand(commands, fileSystemService);
+            ICommand helpCommand = new HelpCommand(commands, fileSystemService, context);
             commands.Add(helpCommand);
 
             return commands;

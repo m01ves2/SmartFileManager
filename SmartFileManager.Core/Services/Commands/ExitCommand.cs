@@ -8,11 +8,11 @@ namespace SmartFileManager.Core.Services.Commands
         public override string Name => "exit";
         public override string Description => "Close application";
 
-        public ExitCommand(IFileSystemService fs) : base(fs)
+        public ExitCommand(IFileSystemService fs, CommandContext context) : base(fs, context)
         {
         }
 
-        public override CommandResult Execute(CommandContext context, string[] args)
+        public override CommandResult Execute(string[] args)
         {
             return new CommandResult() { Status = CommandStatus.Exit, Message = "Exiting..." };
         }

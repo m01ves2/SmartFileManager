@@ -11,12 +11,12 @@ namespace SmartFileManager.Core.Services.Commands
 
         private IReadOnlyList<ICommand> _commands;
 
-        public HelpCommand(IReadOnlyList<ICommand> commands, IFileSystemService fs) : base(fs)
+        public HelpCommand(IReadOnlyList<ICommand> commands, IFileSystemService fs, CommandContext commandContext) : base(fs, commandContext)
         {
             _commands = commands;
         }
 
-        public override CommandResult Execute(CommandContext context, string[] args)
+        public override CommandResult Execute(string[] args)
         {          
             StringBuilder sb = new StringBuilder();
             sb.Append("--help: \n");

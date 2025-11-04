@@ -4,21 +4,23 @@ using System.Text;
 
 namespace SmartFileManager.Core.Services.Commands
 {
-    //команды не являются сущностями, но живут в Core, потому что реализуют бизнес-логику работы с сущностями
     public class ListCommand : BaseCommand
     {
         public override string Name => "ls";
         public override string Description => "List files and folders in a directory";
 
-        public ListCommand(IFileSystemService fs) : base(fs)
+        public ListCommand(IFileSystemService fs, CommandContext context) : base(fs, context)
         {
         }
 
-        public override CommandResult Execute(CommandContext context, string[] args)
+        public override CommandResult Execute(string[] args)
         {
             (IEnumerable<string> commandKeys, string source, string destination) = ParseCommandArguments(args);
-            if (string.IsNullOrEmpty(source))
+
+            if (string.IsNullOrWhiteSpace(source))
                 source = ".";
+
+            source = PathNormalize(source);
 
             CommandResult commandResult = _fs.List(commandKeys, source);
             return commandResult;

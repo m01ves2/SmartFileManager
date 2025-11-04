@@ -21,7 +21,7 @@ namespace SmartFileManager.App.Services
             try {
                 (string commandName, string[] args) = _commandParser.Parse(input);
                 ICommand command = _commandRegistry.GetCommand(commandName);
-                return command.Execute(_commandContext, args);
+                return command.Execute(args);
             }
             catch (InvalidOperationException ex) {
                 LogError("Operation", ex);

@@ -10,10 +10,12 @@ namespace SmartFileManager.Core.Services.Commands
         public virtual bool HideFromHelp => false;
 
         protected readonly IFileSystemService _fs;
+        protected readonly CommandContext _context;
 
-        public BaseCommand(IFileSystemService fs)
+        public BaseCommand(IFileSystemService fs, CommandContext context)
         {
             _fs = fs;
+            _context = context;
         }
 
         protected bool IsFile(string path) => File.Exists(path);
@@ -30,6 +32,19 @@ namespace SmartFileManager.Core.Services.Commands
             return (commandKeys, source, destination);
         }
 
-        public abstract CommandResult Execute(CommandContext context, string[] args);
+        public abstract CommandResult Execute(string[] args);
+
+        protected string PathNormalize(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+                return string.Empty;
+
+            // Если путь абсолютный — возвращаем как есть
+            if (Path.IsPathRooted(path))
+                return Path.GetFullPath(path);
+
+            // Если путь относительный — комбинируем с текущей директорией
+            return Path.GetFullPath(Path.Combine(_context.CurrentDirectory, path));
+        }
     }
 }
