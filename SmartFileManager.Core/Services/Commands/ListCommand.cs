@@ -1,6 +1,5 @@
 ﻿using SmartFileManager.Core.Interfaces;
 using SmartFileManager.Core.Models;
-using System.Text;
 
 namespace SmartFileManager.Core.Services.Commands
 {
@@ -15,14 +14,14 @@ namespace SmartFileManager.Core.Services.Commands
 
         public override CommandResult Execute(string[] args)
         {
-            (IEnumerable<string> commandKeys, string source, string destination) = ParseCommandArguments(args);
+            (IEnumerable<string> flags, string source, string destination) = ParseCommandArguments(args);
 
             if (string.IsNullOrWhiteSpace(source))
                 source = ".";
 
             source = PathNormalize(source);
 
-            CommandResult commandResult = _fs.List(commandKeys, source);
+            CommandResult commandResult = _fs.List(flags, source);
             return commandResult;
         }
     }

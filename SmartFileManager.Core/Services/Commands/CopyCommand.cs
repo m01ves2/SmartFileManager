@@ -15,7 +15,7 @@ namespace SmartFileManager.Core.Services.Commands
         public override CommandResult Execute(string[] args)
         {
 
-            (IEnumerable<string> commandKeys, string source, string destination) = ParseCommandArguments(args);
+            (IEnumerable<string> flags, string source, string destination) = ParseCommandArguments(args);
 
             if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(destination))
                 return new CommandResult { Status = CommandStatus.Error, Message = "source and destination paths required" };
@@ -23,7 +23,7 @@ namespace SmartFileManager.Core.Services.Commands
             source = PathNormalize(source);
             destination = PathNormalize(destination);
 
-            CommandResult commandResult = _fs.Copy(commandKeys, source, destination);
+            CommandResult commandResult = _fs.Copy(flags, source, destination);
             return commandResult;
         }
     }

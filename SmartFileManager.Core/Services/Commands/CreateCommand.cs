@@ -15,14 +15,14 @@ namespace SmartFileManager.Core.Services.Commands
 
         public override CommandResult Execute(string[] args)
         {
-            (IEnumerable<string> commandKeys, string source, string destination) = ParseCommandArguments(args);
+            (IEnumerable<string> flags, string source, string destination) = ParseCommandArguments(args);
 
             if ( string.IsNullOrEmpty(source))
                 return new CommandResult { Status = CommandStatus.Error, Message = "source path required" };
 
             source = PathNormalize(source);
 
-            CommandResult commandResult = _fs.Delete(commandKeys, source);
+            CommandResult commandResult = _fs.Create(flags, source);
             return commandResult;
         }
     }

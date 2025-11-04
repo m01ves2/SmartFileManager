@@ -14,7 +14,7 @@ namespace SmartFileManager.Core.Services.Commands
 
         public override CommandResult Execute(string[] args)
         {
-            (IEnumerable<string> commandKeys, string source, string destination) = ParseCommandArguments(args);
+            (IEnumerable<string> flags, string source, string destination) = ParseCommandArguments(args);
 
             // если аргумент не передан — вернуться в "домашний" каталог (например, корень проекта)
             if (string.IsNullOrEmpty(source)) {
