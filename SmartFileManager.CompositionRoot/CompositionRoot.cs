@@ -9,16 +9,14 @@ namespace SmartFileManager.CompositionRoot
 {
     public static class CompositionRoot
     {
-        public static CommandExecutor CreateExecutor()
-        {
-            // TODO: Replace with Dependency Injection container after reading "Dependency Injection in .NET"
-            
+        public static ICommandExecutor CreateExecutor()
+        {           
             // Core services
             var commandContext = new CommandContext();
             IFileService fileService = new FileService();
             IDirectoryService directoryService = new DirectoryService();
             IFileSystemService fileSystemService = new FileSystemService(fileService, directoryService);
-            IEnumerable<ICommand> commands = BuildCommandList(fileSystemService, commandContext);
+            IEnumerable<ICommand> commands = CreateCommands(fileSystemService, commandContext);
 
             //App services
             var commandRegistry = new CommandRegistry(commands);
@@ -29,7 +27,7 @@ namespace SmartFileManager.CompositionRoot
             return commandExecutor;
         }
 
-        private static List<ICommand> BuildCommandList(IFileSystemService fileSystemService, CommandContext context)
+        private static List<ICommand> CreateCommands(IFileSystemService fileSystemService, CommandContext context)
         {
             var commands = new List<ICommand>();
             ICommand copyCommand = new CopyCommand(fileSystemService, context);

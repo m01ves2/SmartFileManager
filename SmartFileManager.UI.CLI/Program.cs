@@ -1,4 +1,5 @@
 ﻿using SmartFileManager.App.Interfaces;
+//using SmartFileManager.CompositionRoot;
 
 namespace SmartFileManager.UI.CLI
 {
@@ -6,13 +7,14 @@ namespace SmartFileManager.UI.CLI
     {
         private static void Main(string[] args)
         {
-            // Main = start point
-            ICommandExecutor commandExecutor = CompositionRoot.CompositionRoot.CreateExecutor();
-            
-            // UI & Formatter
-            IFormatter formatter = new ConsoleFormatter(); // если понадобится позже
-            IUI ui = new ConsoleUI(commandExecutor);
+            ICommandExecutor executor;
 
+            if (args.Contains("--use-container"))
+                executor = CompositionRoot.CompositionRootWithContainer.CreateExecutor();
+            else
+                executor = CompositionRoot.CompositionRoot.CreateExecutor();
+
+            IUI ui = new ConsoleUI(executor);
             ((ConsoleUI)ui).Run();
         }
     }
