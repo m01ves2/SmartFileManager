@@ -1,6 +1,6 @@
 ﻿using SmartFileManager.Core.Interfaces;
 
-namespace SmartFileManager.Core.Services
+namespace SmartFileManager.Infrastructure.Services
 {
     public class FileService : IFileService
     {

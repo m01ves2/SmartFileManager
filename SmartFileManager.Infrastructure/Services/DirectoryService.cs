@@ -1,7 +1,7 @@
 ﻿using SmartFileManager.Core.Interfaces;
 
 //low-level working with files/directories
-namespace SmartFileManager.Core.Services
+namespace SmartFileManager.Infrastructure.Services
 {
     public class DirectoryService : IDirectoryService
     {

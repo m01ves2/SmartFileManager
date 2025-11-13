@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SmartFileManager.App\SmartFileManager.App.csproj" />
     <ProjectReference Include="..\SmartFileManager.Core\SmartFileManager.Core.csproj" />
+    <ProjectReference Include="..\SmartFileManager.Infrastructure\SmartFileManager.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

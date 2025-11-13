@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFileManager.UI.WPF", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFileManager.CompositionRoot", "SmartFileManager.CompositionRoot\SmartFileManager.CompositionRoot.csproj", "{32672735-4F71-43FC-9DA7-7B77B94AAA06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFileManager.Infrastructure", "SmartFileManager.Infrastructure\SmartFileManager.Infrastructure.csproj", "{05D932CB-B8C0-4BF8-92BB-10F5089E1829}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{32672735-4F71-43FC-9DA7-7B77B94AAA06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32672735-4F71-43FC-9DA7-7B77B94AAA06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32672735-4F71-43FC-9DA7-7B77B94AAA06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05D932CB-B8C0-4BF8-92BB-10F5089E1829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05D932CB-B8C0-4BF8-92BB-10F5089E1829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05D932CB-B8C0-4BF8-92BB-10F5089E1829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05D932CB-B8C0-4BF8-92BB-10F5089E1829}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

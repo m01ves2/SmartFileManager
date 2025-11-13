@@ -2,7 +2,7 @@
 using SmartFileManager.Core.Models;
 using System.Text;
 
-namespace SmartFileManager.Core.Services
+namespace SmartFileManager.Infrastructure.Services
 {
     public enum ItemType
     {

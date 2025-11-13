@@ -4,9 +4,10 @@ using SmartFileManager.Core.Interfaces;
 using SmartFileManager.Core.Models;
 using SmartFileManager.Core.Services;
 using SmartFileManager.Core.Services.Commands;
+using SmartFileManager.Infrastructure.Services;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using ILogger = Microsoft.Extensions.Logging.ILogger; //to shrink Microsoft.Extensions.Logging namespace
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace SmartFileManager.CompositionRoot
 {
