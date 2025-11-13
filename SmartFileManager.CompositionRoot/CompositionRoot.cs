@@ -15,7 +15,8 @@ namespace SmartFileManager.CompositionRoot
         public static ICommandExecutor CreateExecutor()
         {
             // Logging
-            ILogger logger = CreateLogger("logs/log-.txt");
+            ILoggerFactory loggerFactory = CreateLoggerFactory("logs/log-.txt");
+            var logger = loggerFactory.CreateLogger("CompositionRoot");
 
             // Core services
             var commandContext = new CommandContext();
@@ -53,20 +54,18 @@ namespace SmartFileManager.CompositionRoot
             return commands;
         }
 
-        private static ILogger CreateLogger(string filename)
+        private static ILoggerFactory CreateLoggerFactory(string filename)
         {
             var serilogLogger = new LoggerConfiguration()
             .WriteTo.File(filename, rollingInterval: RollingInterval.Day)
             .WriteTo.Console()
             .CreateLogger();
-            using var loggerFactory = LoggerFactory.Create(builder =>
+            var loggerFactory = LoggerFactory.Create(builder =>
             {
                 builder.AddSerilog(serilogLogger, dispose: true);
             });
 
-
-            var logger = loggerFactory.CreateLogger("CompositionRoot");
-            return logger;
+            return loggerFactory;
         }
     }
 }
