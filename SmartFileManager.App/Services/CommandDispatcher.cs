@@ -1,6 +1,8 @@
 ﻿using SmartFileManager.App.Interfaces;
 using SmartFileManager.Core.Interfaces;
 using SmartFileManager.Core.Models;
+using Microsoft.Extensions.Logging;
+using ILogger = Microsoft.Extensions.Logging.ILogger; //to shrink Microsoft.Extensions.Logging namespace
 
 namespace SmartFileManager.App.Services
 {
@@ -9,11 +11,13 @@ namespace SmartFileManager.App.Services
         private readonly CommandContext _commandContext;
         private readonly CommandRegistry _commandRegistry;
         private readonly CommandParser _commandParser;
-        public CommandDispatcher(CommandContext commandContext, CommandRegistry commandRegistry, CommandParser commandParser)
+        private readonly ILogger _logger;
+        public CommandDispatcher(CommandContext commandContext, CommandRegistry commandRegistry, CommandParser commandParser, ILogger logger)
         {
             _commandContext = commandContext;
             _commandRegistry = commandRegistry;
             _commandParser = commandParser;
+            _logger = logger;
         }
 
         public CommandResult Execute(string input)
@@ -21,39 +25,24 @@ namespace SmartFileManager.App.Services
             try {
                 (string commandName, string[] args) = _commandParser.Parse(input);
                 ICommand command = _commandRegistry.GetCommand(commandName);
-                return command.Execute(args);
+                CommandResult commandResult = command.Execute(args);
+                return commandResult;
             }
             catch (InvalidOperationException ex) {
-                LogError("Operation", ex);
-                return new CommandResult() { Status = CommandStatus.Error, Message = $"Operation error: {ex.Message}"};
+                CommandResult commandResult = new CommandResult() { Status = CommandStatus.Error, Message = $"Operation error: {ex.Message}" };
+                _logger.LogError($"Operation error: {ex.Message}");
+                return commandResult;
             }
             catch (Exception ex) {
-                LogError("Unexpected", ex);
-                return new CommandResult() { Status = CommandStatus.Error, Message = $"Unexpected error: {ex.Message}"};
+                CommandResult commandResult = new CommandResult() { Status = CommandStatus.Error, Message = $"Unexpected error: {ex.Message}" };
+                _logger.LogError($"Operation error: {ex.Message}");
+                return commandResult;
             }
         }
 
         public string GetPrompt()
         {
             return _commandContext.CurrentDirectory;
-        }
-
-        private void LogError(string category, Exception ex)
-        {
-            try {
-                string logDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
-                Directory.CreateDirectory(logDir);
-                string logFile = Path.Combine(logDir, "errors.txt");
-
-                string logEntry =
-                    $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] [{category}] {ex.Message}\n" +
-                    $"{ex.StackTrace}\n\n";
-
-                File.AppendAllText(logFile, logEntry + Environment.NewLine);
-            }
-            catch {
-                // no Exceptions to outside. "Silent logging"
-            }
         }
     }
 }

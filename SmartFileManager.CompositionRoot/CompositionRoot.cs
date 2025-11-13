@@ -4,13 +4,19 @@ using SmartFileManager.Core.Interfaces;
 using SmartFileManager.Core.Models;
 using SmartFileManager.Core.Services;
 using SmartFileManager.Core.Services.Commands;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using ILogger = Microsoft.Extensions.Logging.ILogger; //to shrink Microsoft.Extensions.Logging namespace
 
 namespace SmartFileManager.CompositionRoot
 {
     public static class CompositionRoot
     {
         public static ICommandExecutor CreateExecutor()
-        {           
+        {
+            // Logging
+            ILogger logger = CreateLogger("logs/log-.txt");
+
             // Core services
             var commandContext = new CommandContext();
             IFileService fileService = new FileService();
@@ -21,7 +27,7 @@ namespace SmartFileManager.CompositionRoot
             //App services
             var commandRegistry = new CommandRegistry(commands);
             var commandParser = new CommandParser();
-            ICommandDispatcher commandDispatcher = new CommandDispatcher(commandContext, commandRegistry, commandParser);
+            ICommandDispatcher commandDispatcher = new CommandDispatcher(commandContext, commandRegistry, commandParser, logger);
             CommandExecutor commandExecutor = new CommandExecutor(commandDispatcher);
 
             return commandExecutor;
@@ -45,6 +51,22 @@ namespace SmartFileManager.CompositionRoot
             commands.Add(helpCommand);
 
             return commands;
+        }
+
+        private static ILogger CreateLogger(string filename)
+        {
+            var serilogLogger = new LoggerConfiguration()
+            .WriteTo.File(filename, rollingInterval: RollingInterval.Day)
+            .WriteTo.Console()
+            .CreateLogger();
+            using var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddSerilog(serilogLogger, dispose: true);
+            });
+
+
+            var logger = loggerFactory.CreateLogger("CompositionRoot");
+            return logger;
         }
     }
 }
