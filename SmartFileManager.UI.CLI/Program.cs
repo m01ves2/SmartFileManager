@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using SmartFileManager.App.Interfaces;
+using SmartFileManager.CompositionRoot;
 using System.ComponentModel;
 
 namespace SmartFileManager.UI.CLI
@@ -9,24 +10,14 @@ namespace SmartFileManager.UI.CLI
     {
         private static void Main(string[] args)
         {
-            var serilogLogger = new LoggerConfiguration()
-                                .WriteTo.Console()
-                                .WriteTo.File("log-.txt", rollingInterval: RollingInterval.Day)
-                                .CreateLogger();
-
-            var provider = CompositionRoot.CompositionRoot.BuildProvider(services =>
+            var host = AppHost.Build(args, services =>
             {
-                // Логгирование
-                services.AddLogging(builder =>
-                {
-                    builder.AddSerilog(logger: serilogLogger, dispose: true);
-            });
-
-                // UI
                 services.AddSingleton<IUI, ConsoleUI>();
             });
 
-            var ui = provider.GetRequiredService<IUI>();
+            var ui = host.Provider.GetRequiredService<IUI>();
+
+            // ConsoleUI has Run(), but IUI doesn't.
             ((ConsoleUI)ui).Run();
         }
     }
