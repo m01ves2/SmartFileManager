@@ -11,8 +11,8 @@ namespace SmartFileManager.App.Services
         private readonly CommandContext _commandContext;
         private readonly CommandRegistry _commandRegistry;
         private readonly CommandParser _commandParser;
-        private readonly ILogger _logger;
-        public CommandDispatcher(CommandContext commandContext, CommandRegistry commandRegistry, CommandParser commandParser, ILogger logger)
+        private readonly ILogger<CommandDispatcher> _logger;
+        public CommandDispatcher(CommandContext commandContext, CommandRegistry commandRegistry, CommandParser commandParser, ILogger<CommandDispatcher> logger)
         {
             _commandContext = commandContext;
             _commandRegistry = commandRegistry;

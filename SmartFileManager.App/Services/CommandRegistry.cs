@@ -1,4 +1,6 @@
 ﻿using SmartFileManager.Core.Interfaces;
+using SmartFileManager.Core.Services.Commands;
+using System.Collections.ObjectModel;
 
 namespace SmartFileManager.App.Services
 {

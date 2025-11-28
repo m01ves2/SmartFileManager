@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartFileManager.App\SmartFileManager.App.csproj" />
     <ProjectReference Include="..\SmartFileManager.CompositionRoot\SmartFileManager.CompositionRoot.csproj" />
+    <ProjectReference Include="..\SmartFileManager.Tests\SmartFileManager.Tests.csproj" />
   </ItemGroup>
 
 </Project>

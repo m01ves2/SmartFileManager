@@ -1,72 +1,45 @@
-﻿using SmartFileManager.App.Interfaces;
-using SmartFileManager.App.Services;
+﻿//using Microsoft.Extensions.DependencyInjection;
+//using Microsoft.Extensions.Logging;
+//using Serilog;
+//using SmartFileManager.App.Interfaces;
+//using SmartFileManager.App.Services;
+//using SmartFileManager.Core.Interfaces;
+//using SmartFileManager.Core.Models;
+//using SmartFileManager.Core.Services.Commands;
+//using SmartFileManager.Infrastructure.Services;
+//using SmartFileManager.UI.CLI;
+
+using Microsoft.Extensions.DependencyInjection;
 using SmartFileManager.Core.Interfaces;
-using SmartFileManager.Core.Models;
-using SmartFileManager.Core.Services;
 using SmartFileManager.Core.Services.Commands;
-using SmartFileManager.Infrastructure.Services;
-using Microsoft.Extensions.Logging;
-using Serilog;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace SmartFileManager.CompositionRoot
 {
     public static class CompositionRoot
     {
-        public static ICommandExecutor CreateExecutor()
+        public static IServiceProvider BuildProvider(Action<IServiceCollection> configureUI)
         {
-            // Logging
-            ILoggerFactory loggerFactory = CreateLoggerFactory("logs/log-.txt");
-            var logger = loggerFactory.CreateLogger("CompositionRoot");
+            var services = new ServiceCollection();
 
-            // Core services
-            var commandContext = new CommandContext();
-            IFileService fileService = new FileService();
-            IDirectoryService directoryService = new DirectoryService();
-            IFileSystemService fileSystemService = new FileSystemService(fileService, directoryService);
-            IEnumerable<ICommand> commands = CreateCommands(fileSystemService, commandContext);
+            // Регистрация ядра и команд
+            services.AddSmartFileManagerCore();
 
-            //App services
-            var commandRegistry = new CommandRegistry(commands);
-            var commandParser = new CommandParser();
-            ICommandDispatcher commandDispatcher = new CommandDispatcher(commandContext, commandRegistry, commandParser, logger);
-            CommandExecutor commandExecutor = new CommandExecutor(commandDispatcher);
+            // UI-регистрация передаётся из хоста
+            configureUI(services);
 
-            return commandExecutor;
+            var provider = services.BuildServiceProvider();
+            ConfigureCommands(provider);
+
+            return provider;
         }
 
-        private static List<ICommand> CreateCommands(IFileSystemService fileSystemService, CommandContext context)
+        private static void ConfigureCommands(IServiceProvider provider)
         {
-            var commands = new List<ICommand>();
-            ICommand copyCommand = new CopyCommand(fileSystemService, context);
-            ICommand createCommand = new CreateCommand(fileSystemService, context);
-            ICommand deleteCommand = new DeleteCommand(fileSystemService, context);
-            ICommand listCommand = new ListCommand(fileSystemService, context);
-            ICommand moveCommand = new MoveCommand(fileSystemService, context);
-            ICommand exitCommand = new ExitCommand(fileSystemService, context);
-            ICommand cdCommand = new CdCommand(fileSystemService, context);
-            ICommand unknownCommand = new UnknownCommand(fileSystemService, context);
+            var commands = provider.GetServices<ICommand>().ToList().AsReadOnly();
 
-            commands.AddRange(new[] { listCommand, copyCommand, createCommand, deleteCommand, moveCommand, exitCommand, cdCommand, unknownCommand });
-
-            ICommand helpCommand = new HelpCommand(commands, fileSystemService, context);
-            commands.Add(helpCommand);
-
-            return commands;
-        }
-
-        private static ILoggerFactory CreateLoggerFactory(string filename)
-        {
-            var serilogLogger = new LoggerConfiguration()
-            .WriteTo.File(filename, rollingInterval: RollingInterval.Day)
-            .WriteTo.Console()
-            .CreateLogger();
-            var loggerFactory = LoggerFactory.Create(builder =>
-            {
-                builder.AddSerilog(serilogLogger, dispose: true);
-            });
-
-            return loggerFactory;
+            foreach (var cmd in commands)
+                if (cmd is ICommandsAware aware)
+                    aware.SetCommands(commands);
         }
     }
 }
