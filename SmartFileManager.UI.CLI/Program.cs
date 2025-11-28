@@ -14,7 +14,7 @@ namespace SmartFileManager.UI.CLI
             {
                 services.AddSingleton<IUI, ConsoleUI>();
             });
-
+                
             var ui = host.Provider.GetRequiredService<IUI>();
 
             // ConsoleUI has Run(), but IUI doesn't.
