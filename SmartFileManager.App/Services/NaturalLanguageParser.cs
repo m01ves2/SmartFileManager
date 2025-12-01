@@ -1,6 +1,6 @@
 ﻿namespace SmartFileManager.App.Services
 {
-    internal class NaturalLanguageParser
+    public class NaturalLanguageParser
     {
     }
 }
